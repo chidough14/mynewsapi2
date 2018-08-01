@@ -10,7 +10,8 @@ export const store = new Vuex.Store({
     earticles: [],
     sparticles: [],
     harticles: [],
-    Tarticles: []
+    Tarticles: [],
+    Sarticles: []
   },
   getters: {
      getBusinessListings(state){
@@ -27,6 +28,9 @@ export const store = new Vuex.Store({
      },
      getTechListing(state){
       return state.Tarticles
+     },
+     getScienceListing(state){
+      return state.Sarticles
      }
   },
   mutations: {
@@ -44,6 +48,9 @@ export const store = new Vuex.Store({
     },
     getTechListing(state, listings){
       state.Tarticles = listings
+    },
+    getScienceListing(state, listings){
+      state.Sarticles = listings
     }
   },
   actions: {
@@ -75,6 +82,12 @@ export const store = new Vuex.Store({
       axios.get('https://newsapi.org/v2/top-headlines?country=ng&category=technology&apiKey=9e05afd3d5a7439bb5a564a02df6c6d8')
       .then(response => {
         context.commit('getTechListing', response.data.articles)
+      })
+    },
+    getScienceListing(context){
+      axios.get('https://newsapi.org/v2/top-headlines?country=ng&category=science&apiKey=9e05afd3d5a7439bb5a564a02df6c6d8')
+      .then(response => {
+        context.commit('getScienceListing', response.data.articles)
       })
     }
   }

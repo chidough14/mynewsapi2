@@ -1,7 +1,9 @@
 <template>
-  <div>
-    <object width="400" height="400" :data="url"></object>
-    {{ $route.params.author }}
+  <div class="container">
+    <object width="700" height="600" :data="url"></object>
+    <p>Author: {{ $route.params.author }}</p>
+    <p>Title: {{ $route.params.title }}</p>
+    <p>Description: {{ $route.params.description }}</p>
   </div>
 </template>
 
