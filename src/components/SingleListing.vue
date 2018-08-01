@@ -4,6 +4,7 @@
     <p>Author: {{ $route.params.author }}</p>
     <p>Title: {{ $route.params.title }}</p>
     <p>Description: {{ $route.params.description }}</p>
+    <p>url: <a :href="$route.params.url ">{{$route.params.url}}</a></p>
   </div>
 </template>
 
