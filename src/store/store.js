@@ -8,7 +8,9 @@ export const store = new Vuex.Store({
   state: {
     articles: [],
     earticles: [],
-    sparticles: []
+    sparticles: [],
+    harticles: [],
+    Tarticles: []
   },
   getters: {
      getBusinessListings(state){
@@ -19,6 +21,12 @@ export const store = new Vuex.Store({
      },
      getSportListing(state){
         return state.sparticles
+     },
+     getHealthListing(state){
+        return state.harticles
+     },
+     getTechListing(state){
+      return state.Tarticles
      }
   },
   mutations: {
@@ -30,6 +38,12 @@ export const store = new Vuex.Store({
     },
     getSportListing(state, listings){
       state.sparticles = listings
+    },
+    getHealthListing(state, listings){
+      state.harticles = listings
+    },
+    getTechListing(state, listings){
+      state.Tarticles = listings
     }
   },
   actions: {
@@ -49,6 +63,18 @@ export const store = new Vuex.Store({
       axios.get('https://newsapi.org/v2/top-headlines?country=ng&category=sports&apiKey=9e05afd3d5a7439bb5a564a02df6c6d8')
       .then(response => {
         context.commit('getSportListing', response.data.articles)
+      })
+    },
+    getHealthListing(context){
+      axios.get('https://newsapi.org/v2/top-headlines?country=ng&category=health&apiKey=9e05afd3d5a7439bb5a564a02df6c6d8')
+      .then(response => {
+        context.commit('getHealthListing', response.data.articles)
+      })
+    },
+    getTechListing(context){
+      axios.get('https://newsapi.org/v2/top-headlines?country=ng&category=technology&apiKey=9e05afd3d5a7439bb5a564a02df6c6d8')
+      .then(response => {
+        context.commit('getTechListing', response.data.articles)
       })
     }
   }

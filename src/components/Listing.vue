@@ -5,6 +5,8 @@
     <button class="btn btn-success" @click="showBusiness">Show business listings</button>
     <button class="btn btn-info" @click="showEntertainment">Show Entertainment listings</button>
     <button class="btn btn-primary" @click="showSports">Show sports listings</button>
+    <button class="btn btn-warning" @click="showHealth">Show health listings</button>
+    <button class="btn btn-warning" @click="showTech">Show Technology listings</button>
 
 
     <div class="row">
@@ -32,6 +34,24 @@
             </div>
         </div>
       </div>
+
+      <div class="col-sm" v-for="hsplist in getHealthListing" :key="hsplist.id" v-if="showHth">
+        <div class="card" style="width: 18rem;" >
+            <img class="card-img-top" :src="hsplist.urlToImage" alt="Card image cap">
+            <div class="card-body">
+              <router-link :to="{name: 'singleList', params: {url: hsplist.url, author: hsplist.author}}" ><p class="card-text">{{ hsplist.title }}</p></router-link>
+            </div>
+        </div>
+      </div>
+
+      <div class="col-sm" v-for="Tlist in getTechListing" :key="Tlist.id" v-if="showT">
+        <div class="card" style="width: 18rem;" >
+            <img class="card-img-top" :src="Tlist.urlToImage" alt="Card image cap">
+            <div class="card-body">
+              <router-link :to="{name: 'singleList', params: {url: Tlist.url, author: Tlist.author}}" ><p class="card-text">{{ Tlist.title }}</p></router-link>
+            </div>
+        </div>
+      </div>
     </div>
 
 
@@ -44,13 +64,17 @@ export default {
     return {
       showBus : false,
       showEnt: false,
-      showSp: false
+      showSp: false,
+      showHth: false,
+      showT: false
     }
   },
   created(){
     this.$store.dispatch('getBusinessListings')
     this.$store.dispatch('getEntertainmentListing')
     this.$store.dispatch('getSportListing')
+    this.$store.dispatch('getHealthListing')
+    this.$store.dispatch('getTechListing')
   },
   computed: {
     getBusinessListings(){
@@ -61,23 +85,49 @@ export default {
     },
     getSportListing(){
       return this.$store.getters.getSportListing
+    },
+    getHealthListing(){
+       return this.$store.getters.getHealthListing
+    },
+    getTechListing(){
+      return this.$store.getters.getTechListing
     }
   },
   methods: {
     showEntertainment(){
+      this.showHth = false
       this.showSp = false
       this.showBus= false
+      this.showT = false
       this.showEnt = true
     },
     showBusiness(){
+      this.showHth = false
       this.showSp = false
       this.showEnt = false
+      this.showT = false
       this.showBus= true
     },
     showSports(){
+      this.showHth = false
       this.showEnt = false
       this.showBus= false
+      this.showT = false
       this.showSp = true
+    },
+    showHealth(){
+      this.showEnt = false
+      this.showBus= false
+      this.showSp = false
+      this.showT = false
+      this.showHth = true
+    },
+    showTech(){
+      this.showT = true
+      this.showEnt = false
+      this.showBus= false
+      this.showSp = false
+      this.showHth = false
     }
   }
 }
